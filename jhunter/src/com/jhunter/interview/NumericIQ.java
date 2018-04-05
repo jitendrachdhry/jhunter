@@ -45,4 +45,31 @@ public class NumericIQ {
 		}while(true);
 		return base03no.toString();
 	}
+	
+	public static int[] add1ToNumberRepresentedAsArray(int arr[]) {
+		if(arr == null || arr.length == 0){
+			arr = new int[1];
+			arr[0] = 1;
+			return arr;
+		}
+		
+		int idx = arr.length-1;
+		do {
+			if((arr[idx] + 1) == 10 ) {
+				arr[idx] = 0; // 9+1 should be 0 and pass carry for next index number.
+			} else {
+				arr[idx]++; // No needs to add further as there is no carry.
+				return arr;
+			}
+		}while(--idx>=0);
+		
+		/*
+		 * Looks like adding 1 overpass number boundary like 9,9 + 1
+		 * needs to create new array of arr.length + 1 and set array first element to 1.
+		 */
+		int arrResult[] = new int[arr.length + 1];
+		arrResult[0] = 1;
+		return arrResult;
+		
+	}
 }
