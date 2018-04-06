@@ -40,6 +40,8 @@ public class JHunter {
 		System.out.print("add1ToNumberRepresentedAsArray() - ");
 		for(int i=0; i<arrN.length;i++)
 			System.out.print(" " + arrN[i]);
+		
+		if(StringIQ.compareString("abc\\b", "ab")) System.out.print("StringIQ.compareString() return true ");
+		else System.out.print("StringIQ.compareString() return false ");
 	}
-
 }

@@ -14,19 +14,20 @@ public class StringIQ {
 
 		int s1Length = s1.length(), s2Length = s2.length(), s1Idx=s1Length-1, s2Idx=s2Length-1;
 
-		while(s1Idx>=0 && s2Idx>=0){
-
-			if(s1.charAt(s1Idx-1) == '\\' && s1.charAt(s1Idx) == 'b'){
+		while(s1Idx>=0 ){
+			if(s1Idx>0 && (s1.charAt(s1Idx-1) == '\\' && s1.charAt(s1Idx) == 'b')){
+				if(s1Idx == 1) s1Idx = -1;
+				else s1Idx -=3;
+			} else if(s1Idx>0 && (s1.charAt(s1Idx-1) == '\\' && s1.charAt(s1Idx) == 'c')){
 				s1Idx -=2;
-			} else if(s1.charAt(s1Idx-1) == '\\' && s1.charAt(s1Idx) == 'c'){
-				s1Idx -=2;
-				if(Character.toUpperCase(s1.charAt(s1Idx)) == s2.charAt(s2Idx)){
+				if(s1Idx >=0 && Character.toUpperCase(s1.charAt(s1Idx)) == s2.charAt(s2Idx)){
 					s1Idx--;
 					s2Idx--;
 				}else 
-					return false;
+					break;
 			}else if(s1.charAt(s1Idx) == s2.charAt(s2Idx)){
 				s1Idx--; s2Idx--; continue; }
+			else break;
 		}
 		if(s1Idx == -1 && s2Idx == -1)
 			return true;
