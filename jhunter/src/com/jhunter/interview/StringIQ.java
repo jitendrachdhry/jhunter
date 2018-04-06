@@ -12,12 +12,15 @@ public class StringIQ {
 		if(s1 == null || s2 == null || s1.length() == 0 || s2.length() == 0)
 			return false;
 
+		/* 
+		 * Start comparing from end of the string.
+		 */
 		int s1Length = s1.length(), s2Length = s2.length(), s1Idx=s1Length-1, s2Idx=s2Length-1;
 
-		while(s1Idx>=0 ){
+		while(s1Idx>=0 ){ 
 			if(s1Idx>0 && (s1.charAt(s1Idx-1) == '\\' && s1.charAt(s1Idx) == 'b')){
-				if(s1Idx == 1) s1Idx = -1;
-				else s1Idx -=3;
+				if(s1Idx == 1) s1Idx = -1; /* We have only first 2 element (\b) in array so set it to -1 only*/
+				else s1Idx -=3; /* Remove 3 char from string for \b */
 			} else if(s1Idx>0 && (s1.charAt(s1Idx-1) == '\\' && s1.charAt(s1Idx) == 'c')){
 				s1Idx -=2;
 				if(s1Idx >=0 && Character.toUpperCase(s1.charAt(s1Idx)) == s2.charAt(s2Idx)){

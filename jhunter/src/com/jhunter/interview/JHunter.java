@@ -41,7 +41,12 @@ public class JHunter {
 		for(int i=0; i<arrN.length;i++)
 			System.out.print(" " + arrN[i]);
 		
-		if(StringIQ.compareString("abc\\b", "ab")) System.out.print("StringIQ.compareString() return true ");
+		if(StringIQ.compareString("\\cabc\\bd\\b", "ab")) System.out.print("StringIQ.compareString() return true ");
 		else System.out.print("StringIQ.compareString() return false ");
+		
+		int arrT[] = {7,9,5,10,1000};
+		tIQ = new TreeIQ();
+		res = tIQ.findMAXEvenSumOfTree(arrT);
+		System.out.println("tIQ.findMAXEvenSumOfTree() : " + res);
 	}
 }

@@ -1,5 +1,8 @@
 package com.jhunter.interview;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class TreeIQ {	
 	class TreeNode{
 		Object info;
@@ -22,7 +25,67 @@ public class TreeIQ {
 		public int getEndRange() {return end; }
 	}
 	
-	public void insertRangeNode(RangePairInfo obj) {
+	void insertNode(Integer obj) {
+		if(root == null) {
+			root = new TreeNode(obj);
+			return;
+		}
+		
+		TreeNode nodePtr = root;
+		
+		do {
+			if(obj <= (Integer)nodePtr.info) {
+				if(nodePtr.left != null) nodePtr = nodePtr.left;
+				else {
+					nodePtr.left = new TreeNode(obj);
+					return;
+				}
+			}
+			else {
+				if(nodePtr.right != null) nodePtr = nodePtr.right;
+				else {
+					nodePtr.right = new TreeNode(obj);
+					return;
+				}				
+			}
+		}while(true);
+	}
+	
+	/*
+	 * Given a binary tree, output the maximum EVEN sum along any path
+      	  10
+     	/    \
+    	2      50
+   	  /  \      \
+  	 1   101    13
+	Maximum even sum = 101 +2 +10 + 50 + 13 = 176
+	 */
+	public int findMAXEvenSumOfTree(int arr[]) {
+		if(arr == null  || arr.length == 0) return -1;
+		
+		for(int i=0; i<arr.length; i++) {
+			insertNode(new Integer(arr[i]));
+		}
+		
+		int sum = 0, smallestOddNumber=Integer.MAX_VALUE;
+		Queue<TreeNode> q = new LinkedList<TreeNode>();
+		q.offer(root);
+		
+		do {
+			TreeNode ptr = q.poll();
+			sum += (Integer)ptr.info;
+			if((Integer)ptr.info %2 != 0)
+				smallestOddNumber = Math.min(smallestOddNumber, (Integer)ptr.info);
+			if(ptr.left != null)
+				q.offer(ptr.left);
+			if(ptr.right != null)
+				q.offer(ptr.right);
+		}while(!q.isEmpty());
+		
+		if(sum %2 != 0) sum-=smallestOddNumber;
+		return sum;
+	}
+	void insertRangeNode(RangePairInfo obj) {
 		if(root == null) {
 			root = new TreeNode(obj);
 			return;
@@ -54,6 +117,14 @@ public class TreeIQ {
 			insertRangeNode(new RangePairInfo(arr[i][0], arr[i][1]));
 		}
 	}
+    
+    void constructTree(int arr[]) {
+		if(arr == null  || arr.length == 0) return;
+		
+		for(int i=0; i<arr.length; i++) {
+			insertNode(new Integer(arr[i]));
+		}
+    }
 	
 	public int[][] findRangeIndex(int arr[][], int findNo) {
 		if(arr==null || arr.length == 0 )
