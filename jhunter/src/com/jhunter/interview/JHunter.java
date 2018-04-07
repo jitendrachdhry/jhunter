@@ -48,5 +48,8 @@ public class JHunter {
 		tIQ = new TreeIQ();
 		res = tIQ.findMAXEvenSumOfTree(arrT);
 		System.out.println("tIQ.findMAXEvenSumOfTree() : " + res);
+		
+		System.out.println("StringIQ.arrange1stStringBasedOn2ndString() - " + 
+		StringIQ.arrange1stStringBasedOn2ndString("abcdedadf", "cae")); //google","dog" ));
 	}
 }
