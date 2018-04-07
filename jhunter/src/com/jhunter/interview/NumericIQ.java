@@ -72,4 +72,84 @@ public class NumericIQ {
 		return arrResult;
 		
 	}
+	
+	/*
+	 * Give a decimal number, such as 123. Asking a total of smaller num 
+	 * than 123 made up by 1 and 0 composed of decimal numbers. 
+	 * 111, 110, 101, 100, 11, 10, 1, 0.
+	 */
+	public static int smallerNumComposedOf1and0(final int compareNo) {
+		int noOfColumn = 0, tmp=compareNo;
+		
+		if(compareNo == 0) return 0;
+		else if(compareNo==1) return 1;
+		
+		/*
+		 * Find out how many digit we have in given compareNo.
+		 * Based on this we construct array which have value made up by 1 and 0 composed 
+		 * of decimal number(compareNo).
+		 */
+		while(tmp != 0) {
+			noOfColumn++;
+			tmp /=10;
+		}
+		
+		/*
+		 * Create array to store value made up by 1 and 0 composed of decimal number(compareNo).
+		 */
+		int noOfRow = (int) ((noOfColumn <= 2)? 2 : Math.pow(2, noOfColumn-1));
+		int dp[][] = new int[noOfRow][noOfColumn];
+		
+		/*
+		 * Initialize array based on each column value based on pattern. 
+		 * Example for 4 digit.
+		 * 1000
+		 * 1001
+		 * 1010
+		 * 1011
+		 * 1100
+		 * 1101
+		 * 1110
+		 * 1111 
+		 */
+		dp[0][0] = 1;
+		dp[noOfRow-1][0] = 1;
+		for(int i=noOfColumn-1; i>0; i--) {
+			dp[i][0] = 1;
+			int relationShip = (int)Math.pow(2, (noOfColumn-1)-i);
+			byte setToZeroOrOne = 0;
+			for(int j=0; j<noOfRow;j++) {
+				dp[j][i] = setToZeroOrOne;
+				if(relationShip == 1 || (((j+1) % relationShip) == 0)){
+					setToZeroOrOne = (byte) ((setToZeroOrOne == 1) ? 0 : 1);
+				}
+			}
+		}
+		
+		//Check where does given number exist in dp of 1/0
+		for(int i=noOfRow-1; i>=0; i++) {
+			int constructNo = 1;
+			for(int j=1; j<noOfColumn;j++)
+				constructNo = (constructNo * 10) + dp[i][j];
+			if(compareNo > constructNo) {
+				int result = 0;
+				for(int k=noOfColumn-1; k>0; k--)
+					result += (k==1) ? 2 : Math.pow(2, k-1);
+				return result + i + 1 ;
+			}
+		}
+		return 0;
+	}
+	
+	public static void printSmallerNumComposedOf1and0(final int compareNo)  {
+		int k = 0;
+		while (true) {
+			int result = Integer.parseInt(Integer.toBinaryString(k));
+			if (result > compareNo) {
+				break;
+			}
+			System.out.print(result + " ");
+			k++;
+		}
+	}
 }

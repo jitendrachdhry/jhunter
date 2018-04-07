@@ -51,5 +51,9 @@ public class JHunter {
 		
 		System.out.println("StringIQ.arrange1stStringBasedOn2ndString() - " + 
 		StringIQ.arrange1stStringBasedOn2ndString("abcdedadf", "cae")); //google","dog" ));
+		
+		System.out.println("NumericIQ.printSmallerNumComposedOf1and0(1113) : ");
+		NumericIQ.printSmallerNumComposedOf1and0(1113);
+		System.out.println("NumericIQ.smallerNumComposedOf1and0(1113) : " + NumericIQ.smallerNumComposedOf1and0(1113));
 	}
 }
