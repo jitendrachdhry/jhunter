@@ -1,16 +1,17 @@
 package com.jhunter.interview;
 
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 import java.util.Queue;
 
 public class TreeIQ {	
 	class TreeNode{
 		Object info;
-		TreeNode left, right;
+		TreeNode left, right, nextR;
 		
 		public TreeNode(Object info) {
 			this.info = info;
-			left = right = null;
+			left = right = nextR = null;
 		}
 		public Object getInfo() { return info; }
 	}
@@ -34,7 +35,7 @@ public class TreeIQ {
 		TreeNode nodePtr = root;
 		
 		do {
-			if(obj <= (Integer)nodePtr.info) {
+			if(obj.intValue() <= ((Integer)(nodePtr.info)).intValue()) {
 				if(nodePtr.left != null) nodePtr = nodePtr.left;
 				else {
 					nodePtr.left = new TreeNode(obj);
@@ -51,6 +52,13 @@ public class TreeIQ {
 		}while(true);
 	}
 	
+	/*
+	 * a->b->c->d->e change it to b->a->d->c->e
+	 */
+	
+	void reverseTwoNodes() {
+		
+	}
 	/*
 	 * Given a binary tree, output the maximum EVEN sum along any path
       	  10
@@ -143,6 +151,50 @@ public class TreeIQ {
 				nodePtr = nodePtr.left;
 			else
 				nodePtr = nodePtr.right;
+		}
+		return null;
+	}
+	
+	/*
+	 * Connect all brothers from left to right
+	 *                  20
+	 *             10--------->30
+	 *          5--------->25----->50
+	 */
+	
+	void connectTreeSiblinges() {
+		TreeNode nodePtr;
+		Queue<TreeNode > q = new LinkedList<>();
+		
+		if(root == null) return;
+		else q.add(root);
+		
+		while(q.isEmpty() == false){
+			try {
+				nodePtr = q.remove();
+				if(nodePtr.left != null) {
+					q.add(nodePtr.left);
+					if(nodePtr.right != null)
+						nodePtr.left.nextR = nodePtr.right;
+					else 
+						nodePtr.left.nextR = findNextSibling(nodePtr.nextR);
+				}
+				
+				if(nodePtr.right != null) {
+					q.add(nodePtr.right);
+					nodePtr.right.nextR = findNextSibling(nodePtr.nextR);
+				}
+			}catch(NoSuchElementException e) { }
+		}
+	}
+
+	private TreeNode findNextSibling(TreeNode nextR) {
+		// TODO Auto-generated method stub
+		while(nextR!=null)
+		{
+			if(nextR.left != null) return nextR.left;
+			if(nextR.right != null) return nextR.right;
+			nextR = nextR.nextR;
 		}
 		return null;
 	}

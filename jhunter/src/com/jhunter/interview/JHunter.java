@@ -30,10 +30,31 @@ public class JHunter {
 				{31,39}
 				};
 		
-		TreeIQ tIQ = new TreeIQ();
-		int resArr[][] = tIQ.findRangeIndex(arrRange, 0);
+		LinkedListIQ lIQ = new LinkedListIQ();
+		lIQ.insertNode(new Character('a'));
+		lIQ.insertNode(new Character('b'));
+		lIQ.insertNode(new Character('c'));
+		lIQ.insertNode(new Character('d'));
+		lIQ.insertNode(new Character('e'));
+		lIQ.reverseTwoNodes();
+		lIQ.reverseTwoNodes();
+		
+		TreeIQ tIQ1 = new TreeIQ();
+		int resArr[][] = tIQ1.findRangeIndex(arrRange, 0);
 		if(resArr == null) System.out.println("tIQ.findRangeIndex() : NO RANGE FOUND");
 		else System.out.println("tIQ.findRangeIndex() : " + resArr[0][0] + " , " + resArr[0][1]);
+		
+		TreeIQ tIQ  = new TreeIQ();
+		tIQ.insertNode(new Integer(7));
+		tIQ.insertNode(new Integer(5));
+		tIQ.insertNode(new Integer(10));
+		tIQ.insertNode(new Integer(3));
+		tIQ.insertNode(new Integer(1));
+		tIQ.insertNode(new Integer(20));
+		tIQ.insertNode(new Integer(15));
+		tIQ.insertNode(new Integer(40));
+
+		tIQ.connectTreeSiblinges();
 		
 		int arrN[] = {1,9,9};
 		arrN = NumericIQ.add1ToNumberRepresentedAsArray(arrN);
